@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Terminal } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Terminal, Timer, Clock } from 'lucide-react';
 import { slides } from '../slides-data';
 
 export default function SlideShow() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [slideTime, setSlideTime] = useState(0);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1 < slides.length ? prev + 1 : prev));
@@ -28,6 +30,34 @@ export default function SlideShow() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  // Timer logic
+  useEffect(() => {
+    // Reset TOTAL timer only if we go back to the start
+    if (currentSlide === 0) {
+      setElapsedTime(0);
+    }
+    // Reset SLIDE timer on every slide change
+    setSlideTime(0);
+  }, [currentSlide]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    // Start timer from the second slide (index 1) and keep running
+    if (currentSlide > 0) {
+      interval = setInterval(() => {
+        setElapsedTime((prev) => prev + 1);
+        setSlideTime((prev) => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [currentSlide]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const slide = slides[currentSlide];
 
@@ -61,8 +91,22 @@ export default function SlideShow() {
           <Terminal className="w-8 h-8 text-jfrog-green" />
           <span className="text-2xl font-bold tracking-tight">JFrog</span>
         </div>
-        <div className="text-gray-500 text-sm font-mono">
-          {currentSlide + 1} / {slides.length}
+        <div className="flex items-center gap-6">
+          {currentSlide > 0 && (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-gray-400 font-mono bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                <Clock size={16} />
+                <span className="text-sm">Total: <span className="text-white">{formatTime(elapsedTime)}</span></span>
+              </div>
+              <div className="flex items-center gap-2 text-jfrog-green font-mono bg-jfrog-green/10 px-3 py-1 rounded-full border border-jfrog-green/20">
+                <Timer size={16} />
+                <span className="text-sm">Slide: <span className="text-white">{formatTime(slideTime)}</span></span>
+              </div>
+            </div>
+          )}
+          <div className="text-gray-500 text-sm font-mono">
+            {currentSlide + 1} / {slides.length}
+          </div>
         </div>
       </header>
 
@@ -206,4 +250,3 @@ export default function SlideShow() {
     </div>
   );
 }
-
