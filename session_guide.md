@@ -10,8 +10,8 @@ This session is based on real-world learnings from the "Antigravity" project. It
 ### 1. Introduction: The Era of Vibe Coding (10 Minutes)
 *   **Objective:** Define the mindset shift from "writing code" to "guiding agents".
 *   **Key Talking Points:**
-    *   **What is Vibe Coding?** It's about speed and vision. Going from a "WhatsApp message" idea to a live service in days.
-    *   **The Promise:** Rapid prototyping (e.g., UI in 1 day, Workflow in 2 days).
+    *   **What is Vibe Coding?** It's about speed and vision. Going from a "photo of a whiteboard UI sketch" idea to a live service in hours.
+    *   **The Promise:** Rapid prototyping (e.g., Production-ready React App + Database Schema in 4 hours).
     *   **The Reality:** It's not just magic; it requires a new set of skills—specifically, **Context Management**.
 *   **Activity:** Ask the audience: "How many of you have had an AI chat go off the rails after 20 messages?" (Segues into Context Rot).
 
@@ -48,7 +48,7 @@ This session is based on real-world learnings from the "Antigravity" project. It
     *   Show a `tracking.md` update after a task.
 
 ### 5. Q&A and Wrap Up (5 Minutes)
-*   **Final Thought:** "We are moving from 'Man in the Loop' to 'Man as the Architect'."
+*   **Final Thought:** "We are moving from 'Man in the Loop' to 'Man as the Architect'. Remember: **Clear inputs, clear outputs.**"
 *   **Call to Action:** Start your next feature by writing a `plan.md` before writing a single line of code.
 
 ## Preparation Checklist
